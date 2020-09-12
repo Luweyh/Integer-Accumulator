@@ -122,41 +122,41 @@ main PROC
 		mov		eax, user_num
 		cmp		eax, sign_test					; compare with 0 to test sign flag
 		jns		non_negative_num				; when no sign flag, this means its a non negative number
-												; so this exits the loop
+										; so this exits the loop
 	
-		cmp		eax, HIGH_LOWER_LIMIT			; compare - 40
-		jl		check_range						; if less than -40 
+		cmp		eax, HIGH_LOWER_LIMIT				; compare - 40
+		jl		check_range					; if less than -40 
 		cmp		eax, sign_test					; compare to set up for sign flag
-		js		valid_range						; user's input raises sign flag and is in [-40, -1]
+		js		valid_range					; user's input raises sign flag and is in [-40, -1]
 		
 		
 	;checking any number less than -40
 		check_range:		
-			cmp		eax, LOW_UPPER_LIMIT	; compare -55
-			jg		invalid_range			; if -55 < num < -40, then invalid range
+			cmp		eax, LOW_UPPER_LIMIT			; compare -55
+			jg		invalid_range				; if -55 < num < -40, then invalid range
 	
-			cmp		eax, LOW_LOWER_LIMIT	; compare -88
-			jl		invalid_range			; if num < -88, then invalid range
+			cmp		eax, LOW_LOWER_LIMIT			; compare -88
+			jl		invalid_range				; if num < -88, then invalid range
 			mov		eax, user_num			
-			cmp		eax, sign_test			; compare user's number with 0 to test sign flag			
+			cmp		eax, sign_test				; compare user's number with 0 to test sign flag			
 			js		valid_range				; user's input raises sign flag and is in [-88, -55]
 
 
 	;values in (-55 - 40) non-inclusive
 		invalid_range:
 			mov		eax, lightRed + (black * 16)	
-			call	SetTextColor				; make the error message light red :)
+			call	SetTextColor					; make the error message light red :)
 			mov		edx, OFFSET invalid_num
 			call	WriteString					; inform user their number is invalid
 			mov		eax, white + (black * 16)
-			call	SetTextColor				; turn it back to black and white 
+			call	SetTextColor					; turn it back to black and white 
 			call	CrLf
 			call	CrLf
 			mov		eax, user_num				
 			cmp		eax, sign_test				; compare user's num with 0
 			js		get_nums_again				; re loops to get number again.
-												; User's input raises sign flag
-												; and is not in valid range.
+										; User's input raises sign flag
+										; and is not in valid range.
 	
 	; values in [-40,-1] or [-88, -55]
 		valid_range:
@@ -164,23 +164,23 @@ main PROC
 			call	check_max					; check for maximum number
 			mov		eax, user_num
 			add		total_sum, eax				; to find the total sum
-			inc		valid_nums					; increase valid number amount
-			inc		line_number					; increase the line number
+			inc		valid_nums				; increase valid number amount
+			inc		line_number				; increase the line number
 			call	CrLf
 			mov		eax, user_num				
 			cmp		eax, sign_test				; compare user's num with 0
 			js		get_nums_again				; re loops to get number again.
-												; User's input raises sign flag 
-												; and is in valid range
+										; User's input raises sign flag 
+										; and is in valid range
 
 
 ; exiting since they insert a non negative number
 non_negative_num:
 
 ; if user have no valid numbers, then just jump to say good bye
-	cmp		valid_nums, 0		; Comparing how many valid number they have to 0.
+	cmp		valid_nums, 0			; Comparing how many valid number they have to 0.
 	je		no_numbers			; This happens when user inputs a positive 
-								; number before any valid input.
+							; number before any valid input.
 
 	jmp		has_valid_nums			; user have at least one valid number
 
