@@ -1,10 +1,6 @@
-TITLE Integer_Accumulator     (Project_3.asm)
+TITLE Integer_Accumulator     (integer_accumulator.asm)
 
 ; Author: Luwey Hon
-; Last Modified: 5/3/2020
-; OSU email address: honl@oregonstate.edu
-; Course number/section: CS 271 C400
-; Project Number:   3              Due Date: 5/03/2020
 ; Description: This program starts with a heading that displays the title and 
 ;	then says hello to the user. It will instruct the user to enter a number
 ;	in [-88, -55] or [-40, -1]. It will continue asking for a number until
